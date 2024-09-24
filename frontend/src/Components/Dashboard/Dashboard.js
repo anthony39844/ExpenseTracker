@@ -69,6 +69,7 @@ const DashboardStyled = styled.div`
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         gap: 2rem;
+        height: 760px;
         .chart-con {
             grid-column: 1 / 4;
             height: 400px;
@@ -83,7 +84,7 @@ const DashboardStyled = styled.div`
                 .income, .expenses, .balance {
                     background: #FCF6F9;
                     border: 2px solid #FFFFFF;
-                    box-shadow: 0px 1px 15px var(--box- shadow-color);
+                    box-shadow: 0px 1px 15px var(--box-shadow-color);
                     border-radius: 20px;
                     padding: 1rem;
                     p {
