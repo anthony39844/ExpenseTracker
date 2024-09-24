@@ -82,9 +82,9 @@ const DashboardStyled = styled.div`
                     grid-column: span 2;
                 }
                 .income, .expenses, .balance {
-                    background: #FCF6F9;
-                    border: 2px solid #FFFFFF;
-                    box-shadow: 0px 1px 15px var(--box-shadow-color);
+                    background: var(--background);
+                    border: 2px solid var(--white);
+                    box-shadow: 0px 1px 15px var(--box- shadow-color);
                     border-radius: 20px;
                     padding: 1rem;
                     p {
@@ -122,8 +122,8 @@ const DashboardStyled = styled.div`
                 }
             }
             .salary-item {
-                background: #FCF6F9;
-                border: 2px solid #FFFFFF;
+                background: var(--background);
+                border: 2px solid var(--white);
                 box-shadow: 0px 1px 15px var(--box-shadow-color);
                 border-radius: 20px;
                 padding: 1rem;

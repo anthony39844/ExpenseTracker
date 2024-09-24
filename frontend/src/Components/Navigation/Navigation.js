@@ -40,7 +40,7 @@ const NavStyled = styled.nav`
     width: 374px;
     height: 100%;
     background: var(--background-color);
-    border: 3px solid #FFFFFF;
+    border: 3px solid var(--white);
     backdrop-filter: blur(4.5px);
     border-radius: 32px;
     display: flex;
@@ -59,7 +59,7 @@ const NavStyled = styled.nav`
             height: 80px;
             border-radius: 50%;
             object-fit: cover;
-            background: #fcf6f9;
+            background: var(--background);
             box-shadow: 0px 1px 17px var(--box-shadow-color);
         }
         
