@@ -7,11 +7,12 @@ import Button from '../Button/Button'
 import { useGlobalContext } from '../../context/globalContext'
 
 function Navigation({active, setActive}) {
-    const {setLoggedIn} = useGlobalContext()
+    const {setLoggedIn, setError} = useGlobalContext()
 
     const handleSubmit = e => {
         e.preventDefault()
         setLoggedIn(false)
+        setError('')
     }
 
     return (

@@ -78,7 +78,7 @@ export const GlobalProvider = ({children}) => {
     }
 
     const logIn = async (user, pass) => {
-        const response = await axios.post(`${BASE_URL}login-user`, {username: user, password: pass})
+        const response = await axios.post(`${BASE_URL}login-user`, {username: user, password: pass}, {withCredentials: true})
             .then(() => {
                 setLoggedIn(true)
             })
