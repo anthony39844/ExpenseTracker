@@ -67,7 +67,7 @@ const NavStyled = styled.nav`
             color: var(--primary-color-full);
         }
         p {
-            color: var(--primary-color2)
+            color: var(--primary-color6)
         }
     }
 
@@ -84,13 +84,13 @@ const NavStyled = styled.nav`
             font-weight: 500;
             cursor: pointer;
             transition: all .4s ease-in-out;
-            color: var(--primary-color2);
+            color: var(--primary-color6);
             padding-left: 1rem;
             position: relative;
         }
 
         i {
-            color: var(--primary-color2);
+            color: var(--primary-color6);
             font-size: 1.4rem;
             transition: all .4s ease-in-out;
         }

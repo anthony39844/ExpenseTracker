@@ -10,8 +10,9 @@ export const GlobalStyle = createGlobalStyle`
 
     :root {
         --primary-color: #222260;
-        --primary-color2: rgba(34, 34, 96, 0.6);
-        --primary-color3: rgba(34, 34, 96, 0.4);
+        --primary-color4: rgba(34, 34, 96, 0.4);
+        --primary-color6: rgba(34, 34, 96, 0.6);
+        --primary-color9: rgba(34, 34, 96, 0.9);
         --primary-color-full: rgba(34, 34, 96, 1);
         --box-shadow-color: rgba(0, 0, 0, 0.06);
         --background-color: rgba(252, 246, 249, 0.78);

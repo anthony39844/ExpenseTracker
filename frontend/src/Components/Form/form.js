@@ -111,9 +111,9 @@ const FormStyled = styled.form`
         background: transparent;
         resize: none;
         box-shadow: 0px 1px 15px var(--box-shadow-color);
-        color: rgba(34, 34, 96, 0.9);
+        color: var(--primary-color9);
         &::placeholder {
-            color: var(--primary-color3);
+            color: var(--primary-color4);
         }
         .input-control {
             input {
@@ -124,7 +124,7 @@ const FormStyled = styled.form`
             display: flex;
             justify-content: flex-end;
             select {
-                color: var(--primary-color3);
+                color: var(--primary-color4);
                 &:focus, &:active {
                     color: var(--primary-color-full);
                 }
