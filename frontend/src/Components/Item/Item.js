@@ -1,12 +1,12 @@
 import React from 'react'
 import styled from "styled-components"
-import { calendar, comment, dollar, trash, money, sportsbet, gift, returns, food, takeout, clothing, shopping, misc, stocks, tv, travel, house, school } from '../../utils/icons';
+import { calendar, dollar, trash, money, sportsbet, gift, returns, food, takeout, clothing, shopping, misc, stocks, tv, travel, house, school } from '../../utils/icons';
 import Button from '../Button/Button';
 import { dateFormating } from '../../utils/dateFormat';
 
 function Item(
     {
-        id, title, amount, date, category, description, deleteItem, indicatorColor, type
+        id, title, amount, date, category, deleteItem, indicatorColor, type
     })
     {
 
@@ -67,9 +67,6 @@ function Item(
                     <div className='text'>
                         <p>{dollar}{amount}</p>
                         <p>{calendar}{dateFormating(date)}</p>
-                        <p>
-                            {comment} {description}
-                        </p>
                     </div>
                     <div className='btn-con'>
                         <Button

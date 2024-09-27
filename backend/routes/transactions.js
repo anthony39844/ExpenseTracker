@@ -10,23 +10,22 @@ const router = require('express').Router()
 
 router.post('/add-income', authenticate, async (req, res) => {
     const userId = req.session.userId
-    const {title, amount, category, description, date} = req.body;
+    const {title, amount, category, date} = req.body;
 
     const income = IncomeSchema({
         userId,
         title, 
         amount, 
         category,
-        description,
         date
     })
 
     try {
         //validations
-        if (!title || !description || !category || !date) {
+        if (!title || !category) {
             return res.status(400).json({message: "All fields are required"})
         } 
-        if (amount <= 0 || typeof amount === 'number') {
+        if (isNaN(Number(amount)) || amount.trim() === "" || amount <= 0) {
             return res.status(400).json({message: "Invalid amount"})
         }
         await income.save()
@@ -49,28 +48,28 @@ router.get('/get-incomes', authenticate, async (req, res) => {
 
 router.post('/add-expense', authenticate, async (req, res) => {
     const userId = req.session.userId
-    const {title, amount, category, description, date} = req.body;
+    const {title, amount, category, date} = req.body;
 
     const expense = ExpenseSchema({
         userId,
         title, 
         amount, 
         category,
-        description,
         date
     })
 
     try {
         //validations
-        if (!title || !description || !category || !date) {
+        if (!title || !category) {
             return res.status(400).json({message: "All fields are required"})
         } 
-        if (amount <= 0 || typeof amount === 'number') {
+        if (isNaN(Number(amount)) || amount.trim() === "" || amount <= 0) {
             return res.status(400).json({message: "Invalid amount"})
         }
         await expense.save()
         res.status(200).json({message: "Expense Added"})
     } catch (error) {
+        console.log(error)
         res.status(500).json({message: "Server Error"})
     }
 })

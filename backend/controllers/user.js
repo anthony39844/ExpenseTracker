@@ -9,13 +9,11 @@ exports.addUser = async (req, res) => {
     })
     
     user.userId = user._id
-
     try {
         //validations
-        if (!username || !password) {
+        if (!username || !password || username === "" || password === "") {
             return res.status(400).json({message: "All fields are required"})
         } 
-
         const userExists = await UserSchema.findOne({ username });
         if (userExists) {
             return res.status(400).json({ message: "Username already taken" });

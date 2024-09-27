@@ -12,6 +12,7 @@ export const GlobalProvider = ({children}) => {
     const [expenses, setExpenses] = useState([])
     const [error, setError] = useState(null)
     const [loggedIn, setLoggedIn] = useState(false)
+    const [username, setUsername] = useState(''); 
 
     const addIncome = async (income) => {
         const response = await axios.post(`${BASE_URL}add-income`, income, {withCredentials: true})
@@ -40,11 +41,13 @@ export const GlobalProvider = ({children}) => {
     }
 
     const addExpense = async (expense) => {
-        const response = await axios.post(`${BASE_URL}add-expense`, expense, {withCredentials: true})
-            .catch((err) => {
-                setError(err.response.data.message)
-            })
-        getExpenses()
+        try {
+            const response = await axios.post(`${BASE_URL}add-expense`, expense, {withCredentials: true})
+            getExpenses()
+        }
+        catch (error) {
+            setError(error.response.data.message)
+        }
     }
 
     const getExpenses = async () => {
@@ -79,37 +82,46 @@ export const GlobalProvider = ({children}) => {
     }
 
     const logIn = async (user, pass) => {
-        const response = await axios.post(`${BASE_URL}login-user`, {username: user, password: pass}, {withCredentials: true})
-            .then(() => {
-                setLoggedIn(true)
-            })
-            .catch((err) => {
-                setError(err.response.data.message)
-            })
+        try {
+            const response = await axios.post(`${BASE_URL}login-user`, {username: user, password: pass}, {withCredentials: true})
+            setLoggedIn(true)
+        }
+        catch (err) {
+            setError(err.response.data.message)
+            return
+        }
+        
     }
 
     const createAccount = async (user, pass) => {
-        const response = await axios.post(`${BASE_URL}add-user`, {username: user, password: pass}, {withCredentials: true})
-            .then(() => {
-                setLoggedIn(true)
-            })
-            .catch((err) => {
-                setError(err.response.data.message)
-            })
+        try {
+            const response = await axios.post(`${BASE_URL}add-user`, {username: user, password: pass}, {withCredentials: true})
+            setLoggedIn(true)
+        }
+        catch (err) {
+            setError(err.response.data.message)
+            return
+        }
     }
 
-    const deleteUser = async (req, res) => {
+    const deleteUser = async () => {
         const user = await axios.get(`${BASE_URL}current-user`, {withCredentials: true})
         const id = user.data.userId
         const response = await axios.delete(`${BASE_URL}delete-user/${id}`)
-            .then(() => {
-                setLoggedIn(false) // maybe add a confirmation pop up 
-            })
             .catch((err) => {
                 setError(err.response.data.message)
             })
-
+        setLoggedIn(false) // maybe add a confirmation pop up 
     }
+
+    const getUsername = async () => {
+        try {
+            const user = await axios.get(`${BASE_URL}current-user`, { withCredentials: true });
+            setUsername(user.data.username)
+        } catch (err) {
+            setError(err.response.data.message)
+        }
+    };
         
 
     return (
@@ -132,7 +144,9 @@ export const GlobalProvider = ({children}) => {
             createAccount,
             loggedIn,
             setLoggedIn,
-            deleteUser
+            deleteUser,
+            getUsername, 
+            username
         }}>
             {children}
         </GlobalContext.Provider>

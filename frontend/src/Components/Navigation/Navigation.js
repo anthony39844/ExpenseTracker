@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useEffect} from 'react'
 import styled from "styled-components"
 import avatar from '../../img/avatar.png'
 import { menuItems } from '../../utils/menuItems'
@@ -7,7 +7,11 @@ import Button from '../Button/Button'
 import { useGlobalContext } from '../../context/globalContext'
 
 function Navigation({active, setActive}) {
-    const {setLoggedIn, setError, deleteUser} = useGlobalContext()
+    const {setLoggedIn, setError, deleteUser, username, getUsername} = useGlobalContext()
+
+    useEffect(() => {
+        getUsername()
+    }, [])
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -25,15 +29,14 @@ function Navigation({active, setActive}) {
         <div className='user-con'>
             <img src={avatar} alt=''></img>
             <div className='text'>
-                <h2>Mike</h2>
-                <p>iourhf </p>
+                <h2>{username}</h2>
             </div>
         </div>
         <ul className='menu-items'>
             {menuItems.map((item) => {
                 return <li 
                     key={item.id}
-                    onClick={() => {setActive(item.id)}}
+                    onClick={() => {setActive(item.id); setError('')}}
                     className={active === item.id ? 'active' : ''}
                 >
                     {item.icon}

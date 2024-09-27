@@ -11,12 +11,11 @@ function Form() {
     const [inputState, setInputState] = useState({
         title: '',
         amount: '',
-        date: '',
+        date: new Date(),
         category: '',
-        description: ''
     })
 
-    const {title, amount, date, category, description} = inputState 
+    const {title, amount, date, category} = inputState 
 
     const handleInput = type => e => {
         setInputState({...inputState, [type]: e.target.value})
@@ -30,9 +29,8 @@ function Form() {
         setInputState({
                 title: '',
                 amount: '',
-                date: '',
+                date: new Date(),
                 category: '',
-                description: ''
         })
     }
 
@@ -49,9 +47,6 @@ function Form() {
                 </input>
             </div>
             <div className='input-control'>
-                <textarea name='description' value={description} placeholder='Description' id='description' cols="30" rows="4" onChange={handleInput('description')}></textarea>
-            </div>
-            <div className='input-control'>
                 <input 
                     type='text'
                     value={amount}
@@ -65,7 +60,7 @@ function Form() {
                     id='date'
                     placeholderText='Enter a Date'
                     selected={date}
-                    dateFormat={'dd/MM/yyyy'}
+                    dateFormat={'MM/dd/yyyy'}
                     onChange={(date) => {
                         setInputState({...inputState, date: date})
                     }}>

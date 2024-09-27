@@ -2,12 +2,11 @@ import React, { useEffect } from 'react'
 import styled from "styled-components"
 import { InnerLayout } from '../../styles/Layouts';
 import { useGlobalContext } from '../../context/globalContext';
-import Form from '../Form/form';
 import IncomeItem from '../Item/Item.js';
 import ExpenseForm from './ExpenseForm';
 
 function Expenses() {
-    const {addExpense, expenses, getExpenses, deleteExpense, totalExpenses} = useGlobalContext()
+    const {expenses, getExpenses, deleteExpense, totalExpenses} = useGlobalContext()
 
     useEffect(() => {
         getExpenses()
@@ -29,12 +28,11 @@ function Expenses() {
                     </div>
                     <div className='incomes'>
                         {expenses.map((expense) => {
-                            const {_id, title, amount, date, category, description, type} = expense;
+                            const {_id, title, amount, date, category, type} = expense;
                             return <IncomeItem
                                     key={_id}
                                     id={_id}
                                     title={title}
-                                    description={description}
                                     amount={amount}
                                     date={date}
                                     type={type}

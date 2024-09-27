@@ -24,16 +24,10 @@ const IncomeSchema = new mongoose.Schema({
     },
     date: {
         type: Date,
-        required: true,
+        required: false,
         trim: true
     },
     category: {
-        type: String,
-        required: true,
-        maxLength: 20,
-        trim: true
-    },
-    description: {
         type: String,
         required: true,
         maxLength: 20,
