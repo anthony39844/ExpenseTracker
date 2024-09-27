@@ -104,7 +104,6 @@ const FormStyled = styled.form`
         font-family:  inherit;
         font-size: inherit;
         outline: none;
-        border: none;
         padding: .5rem 1rem;
         border-radius: 5px;
         border: 2px solid #fff;

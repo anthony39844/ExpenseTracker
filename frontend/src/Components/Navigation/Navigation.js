@@ -3,8 +3,17 @@ import styled from "styled-components"
 import avatar from '../../img/avatar.png'
 import { menuItems } from '../../utils/menuItems'
 import { signout } from '../../utils/icons'
+import Button from '../Button/Button'
+import { useGlobalContext } from '../../context/globalContext'
 
 function Navigation({active, setActive}) {
+    const {setLoggedIn} = useGlobalContext()
+
+    const handleSubmit = e => {
+        e.preventDefault()
+        setLoggedIn(false)
+    }
+
     return (
     <NavStyled>
         <div className='user-con'>
@@ -27,9 +36,16 @@ function Navigation({active, setActive}) {
             })}
         </ul>
         <div className='bottom-nav'>
-            <li>
-                {signout} Sign Out
-            </li>
+            <Button
+                name={'Sign Out'}
+                icon={signout}
+                bPad={'.8rem 1.6rem'}
+                bRad={'30px'}
+                bg={'var(--color-accent)'}
+                color={'#fff'}
+                onClick={handleSubmit}>
+                {signout}
+            </Button>
         </div>
     </NavStyled>
     )

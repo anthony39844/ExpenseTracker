@@ -8,11 +8,12 @@ import Dashboard from "./Components/Dashboard/Dashboard";
 import Income from "./Components/Incomes/Income";
 import Expense from "./Components/Expenses/Expense";
 import { useGlobalContext } from "./context/globalContext";
+import Home from "./Components/Home/Home";
 
 function App() {
   const [active, setActive] = useState(1)
 
-  const global = useGlobalContext()
+  const {loggedIn} = useGlobalContext()
 
   const displayData = () => {
     switch(active) {
@@ -34,12 +35,18 @@ function App() {
   }, [])
   return (
     <AppStyled bg={bg} className="App">
-      {orbMemo}
       <MainLayout>
-        <Navigation active={active} setActive={setActive}></Navigation>
-        <main>
-          {displayData()}
-        </main>
+      {!loggedIn 
+        ? <Home /> 
+        : (
+            <>
+                {orbMemo}
+                <Navigation active={active} setActive={setActive} />
+                <main>
+                    {displayData()}
+                </main>
+            </>
+        )}
       </MainLayout>
     </AppStyled> 
   );
