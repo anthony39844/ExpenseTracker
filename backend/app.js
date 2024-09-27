@@ -26,7 +26,7 @@ app.use(cors({
 
 //session
 app.use(session({
-    secret: 'anthony39844', // Change this to a strong secret
+    secret: process.env.SECRET, // Change this to a strong secret
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({ mongoUrl: mongoUrl }),
