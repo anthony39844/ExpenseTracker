@@ -7,6 +7,8 @@ exports.addUser = async (req, res) => {
         username, 
         password
     })
+    
+    user.userId = user._id
 
     try {
         //validations
@@ -18,7 +20,8 @@ exports.addUser = async (req, res) => {
         if (userExists) {
             return res.status(400).json({ message: "Username already taken" });
         }
-
+        req.session.userId = user._id;
+        req.session.username = user.username;
         await user.save()
         res.status(200).json({message: "User Added"})
     } catch (error) {
@@ -58,8 +61,7 @@ exports.loginUser = async (req, res) => {
         req.session.userId = user._id;
         req.session.username = user.username;
         res.status(200).json({ message: "Login successful", user: { id: user._id, username: user.username } });
-
     } catch (err) {
-        res.status(500).json({ message: "Server error" });
+        res.status(500).json({ message: "Could not log in" });
     }   
 }   

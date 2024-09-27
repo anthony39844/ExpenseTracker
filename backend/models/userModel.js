@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
+    userId: {
+        type: String,
+        required: true,
+        ref: 'User'
+    },
     username: {
         type: String,
         required: true,
@@ -11,7 +16,6 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-        minLength: 10,
     } 
 }, {timestamps: true})
 

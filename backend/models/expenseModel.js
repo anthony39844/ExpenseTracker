@@ -1,9 +1,14 @@
 const mongoose = require('mongoose');
 
 const ExpenseSchema = new mongoose.Schema({
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
+    },
     title: {
         type: String,
-        requiree: true,
+        required: true,
         trim: true,
         maxLength: 50
     },
