@@ -21,12 +21,12 @@ mongoose.connect(mongoUrl)
 //middlewares
 app.use(express.json())
 app.use(cors({
-    origin: 'http://localhost:3000', // Update to your frontend origin
+    origin: 'http://localhost:3000', // Update to frontend origin
     credentials: true}))
 
 //session
 app.use(session({
-    secret: process.env.SECRET, // Change this to a strong secret
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({ mongoUrl: mongoUrl }),
