@@ -2,17 +2,22 @@ import React, { useState } from 'react'
 import styled from "styled-components"
 import avatar from '../../img/avatar.png'
 import { menuItems } from '../../utils/menuItems'
-import { signout } from '../../utils/icons'
+import { X, signout } from '../../utils/icons'
 import Button from '../Button/Button'
 import { useGlobalContext } from '../../context/globalContext'
 
 function Navigation({active, setActive}) {
-    const {setLoggedIn, setError} = useGlobalContext()
+    const {setLoggedIn, setError, deleteUser} = useGlobalContext()
 
     const handleSubmit = e => {
         e.preventDefault()
         setLoggedIn(false)
         setError('')
+    }
+
+    const handleDeletion = e => {
+        e.preventDefault()
+        deleteUser()
     }
 
     return (
@@ -47,6 +52,18 @@ function Navigation({active, setActive}) {
                 onClick={handleSubmit}>
                 {signout}
             </Button>
+            <div className='delete-btn'>
+                <Button
+                    name={'Delete Account'}
+                    icon={X}
+                    bPad={'.8rem 1.6rem'}
+                    bRad={'30px'}
+                    bg={'var(--color-accent)'}
+                    color={'#fff'}
+                    onClick={handleDeletion}>
+                    {X}
+                </Button>
+            </div>
         </div>
     </NavStyled>
     )
@@ -128,6 +145,10 @@ const NavStyled = styled.nav`
             background: #222260;
             border-radius: 0 10px 10px 0;
         }
+    }
+
+    .delete-btn {
+        margin-top: 10px
     }
     
 `;

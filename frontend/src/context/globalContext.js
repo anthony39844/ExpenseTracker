@@ -5,6 +5,7 @@ const BASE_URL = 'http://localhost:4000/api/v1/'
 
 const GlobalContext = React.createContext()
 
+
 export const GlobalProvider = ({children}) => {
 
     const [incomes, setIncomes] = useState([])
@@ -13,7 +14,7 @@ export const GlobalProvider = ({children}) => {
     const [loggedIn, setLoggedIn] = useState(false)
 
     const addIncome = async (income) => {
-        const response = await axios.post(`${BASE_URL}add-income`, income)
+        const response = await axios.post(`${BASE_URL}add-income`, income, {withCredentials: true})
             .catch((err) => {
                 setError(err.response.data.message)
             })
@@ -21,7 +22,7 @@ export const GlobalProvider = ({children}) => {
     }
 
     const getIncomes = async () => {
-        const response = await axios.get(`${BASE_URL}get-incomes`)
+        const response = await axios.get(`${BASE_URL}get-incomes`, {withCredentials: true})
         setIncomes(response.data)
     }
 
@@ -38,8 +39,8 @@ export const GlobalProvider = ({children}) => {
         return totalIncome
     }
 
-    const addExpense = async (income) => {
-        const response = await axios.post(`${BASE_URL}add-expense`, income)
+    const addExpense = async (expense) => {
+        const response = await axios.post(`${BASE_URL}add-expense`, expense, {withCredentials: true})
             .catch((err) => {
                 setError(err.response.data.message)
             })
@@ -47,7 +48,7 @@ export const GlobalProvider = ({children}) => {
     }
 
     const getExpenses = async () => {
-        const response = await axios.get(`${BASE_URL}get-expenses`)
+        const response = await axios.get(`${BASE_URL}get-expenses`, {withCredentials: true})
         setExpenses(response.data)
     }
 
@@ -88,7 +89,7 @@ export const GlobalProvider = ({children}) => {
     }
 
     const createAccount = async (user, pass) => {
-        const response = await axios.post(`${BASE_URL}add-user`, {username: user, password: pass})
+        const response = await axios.post(`${BASE_URL}add-user`, {username: user, password: pass}, {withCredentials: true})
             .then(() => {
                 setLoggedIn(true)
             })
@@ -96,6 +97,20 @@ export const GlobalProvider = ({children}) => {
                 setError(err.response.data.message)
             })
     }
+
+    const deleteUser = async (req, res) => {
+        const user = await axios.get(`${BASE_URL}current-user`, {withCredentials: true})
+        const id = user.data.userId
+        const response = await axios.delete(`${BASE_URL}delete-user/${id}`)
+            .then(() => {
+                setLoggedIn(false) // maybe add a confirmation pop up 
+            })
+            .catch((err) => {
+                setError(err.response.data.message)
+            })
+
+    }
+        
 
     return (
         <GlobalContext.Provider value={{
@@ -116,7 +131,8 @@ export const GlobalProvider = ({children}) => {
             logIn,
             createAccount,
             loggedIn,
-            setLoggedIn
+            setLoggedIn,
+            deleteUser
         }}>
             {children}
         </GlobalContext.Provider>
