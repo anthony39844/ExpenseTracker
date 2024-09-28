@@ -19,7 +19,7 @@ function Income() {
                 <h2 className='total-income'>
                     Total Income: 
                     <span>
-                        ${totalIncome()}
+                        ${totalIncome().toFixed(2)}
                     </span>
                 </h2>
                 <div className='income-content'>

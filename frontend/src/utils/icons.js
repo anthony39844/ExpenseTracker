@@ -33,3 +33,4 @@ export const misc = <i class="fa-solid fa-ellipsis"></i>
 export const travel = <i class="fa-solid fa-plane-departure"></i>
 export const house = <i class="fa-solid fa-house"></i>
 export const school = <i class="fa-solid fa-graduation-cap"></i>
+export const upload = <i class="fa-solid fa-upload"></i>

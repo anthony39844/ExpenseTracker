@@ -11,6 +11,7 @@ exports.addIncome = async (req, res) => {
         date
     })
 
+    console.log(income)
     try {
         //validations
         if (!title || !description || !category || !date) {
@@ -19,13 +20,14 @@ exports.addIncome = async (req, res) => {
         if (amount <= 0 || !amount === 'number') {
             return res.status(400).json({message: "Invalid amount"})
         }
+        console.log("after")
         await income.save()
+        console.log("save")
         res.status(200).json({message: "Income Added"})
     } catch (error) {
         res.status(500).json({message: "Server Error"})
     }
 
-    console.log(income)
 }
 
 
