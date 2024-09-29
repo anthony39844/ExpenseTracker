@@ -25,7 +25,7 @@ function Home() {
 
     return (
     <HomeStyled>
-        <div className='input-control'>
+        <div className='username'>
             <input 
                 type='text'
                 value={username}
@@ -36,9 +36,9 @@ function Home() {
                 }}>
             </input>
         </div>
-        <div className='input-control'>
+        <div className='password'>
             <input 
-                type='text'
+                type='password'
                 value={password}
                 name={'password'}
                 placeholder="Password"

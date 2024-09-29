@@ -34,3 +34,4 @@ export const travel = <i class="fa-solid fa-plane-departure"></i>
 export const house = <i class="fa-solid fa-house"></i>
 export const school = <i class="fa-solid fa-graduation-cap"></i>
 export const X = <i class="fa-regular fa-circle-xmark"></i>
+export const chart = <i class="fa-solid fa-chart-simple"></i>

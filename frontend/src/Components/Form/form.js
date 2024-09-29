@@ -6,6 +6,8 @@ import { useGlobalContext } from '../../context/globalContext'
 import Button from '../Button/Button'
 import { plus } from '../../utils/icons'
 
+export const income_options = ["Salary", "Sports Betting", "Payment", "Gift", "Return"]
+
 function Form() {
     const {addIncome, getIncomes, error, setError} = useGlobalContext() 
     const [inputState, setInputState] = useState({
@@ -70,11 +72,9 @@ function Form() {
             <div className='selects input-control'>
                 <select required value={category} name='category' id='category' onChange={handleInput('category')}>
                     <option value="" disabled>Select Option</option>
-                    <option value="Salary">Salary</option>
-                    <option value="SportsBetting">Sports Betting</option>
-                    <option value="Payment">Payment</option>
-                    <option value="Gift">Gift</option>
-                    <option value="Return">Return</option>
+                    {income_options.map((option) => (
+                        <option key={option} value={option}>{option}</option>
+                    ))}
                 </select>
             </div>
             <div className='submit-btn'>

@@ -23,17 +23,17 @@ function Dashboard() {
                     <div className='chart-con'>
                         <Chart></Chart>
                         <div className='amount-con'>
-                            <div className='income'>
+                            <div className='income-tile'>
                                 <h2>Total Income</h2>
                                 <p>{dollar} {totalIncome()}</p>
                             </div>
-                            <div className='expenses'>
+                            <div className='expense-tile'>
                                 <h2>Total Expenses</h2>
                                 <p>{dollar} {totalExpenses()}</p>
                             </div>
                             <div className='balance'>
                                 <h2>Total Balance</h2>
-                                <p>{dollar} {totalBalance()}</p>
+                                <p style={{ color: totalBalance() < 0 ? 'red' : 'var(--color-green)' }}>{dollar} {totalBalance()}</p>
                             </div>
                         </div>
                     </div>
@@ -78,10 +78,10 @@ const DashboardStyled = styled.div`
                 grid-template-columns: repeat(4, 1fr);
                 gap: 2rem;
                 margin-top: 2rem;
-                .income, .expenses {
+                .income-tile, .expense-tile {
                     grid-column: span 2;
                 }
-                .income, .expenses, .balance {
+                .income-tile, .expense-tile, .balance {
                     background: var(--background);
                     border: 2px solid var(--white);
                     box-shadow: 0px 1px 15px var(--box- shadow-color);
@@ -99,10 +99,10 @@ const DashboardStyled = styled.div`
                     flex-direction: column;
                     justify-content: center;
                     align-items: center;
+                    width: auto;
                     p {
-                        color: var(--color-green);
                         opacity: 0.6;
-                        font-size: 4.5rem;
+                        font-size: 2.5rem;
                     }
                 }
             }

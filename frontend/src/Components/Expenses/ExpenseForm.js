@@ -6,6 +6,8 @@ import { useGlobalContext } from '../../context/globalContext'
 import Button from '../Button/Button'
 import { plus } from '../../utils/icons'
 
+export const expense_options = ["Groceries", "Clothes", "Shopping", "Entertainment", "Food", "Stocks", "Subscriptions", "Traveling", "Rent", "School", "Misc"]
+
 function ExpenseForm() {
     const {addExpense, error, setError} = useGlobalContext() 
     const [inputState, setInputState] = useState({
@@ -15,7 +17,7 @@ function ExpenseForm() {
         category: ''
     })
 
-    const {title, amount, date, category} = inputState 
+    const {title, amount, date, category} = inputState
 
     const handleInput = type => e => {
         setInputState({...inputState, [type]: e.target.value})
@@ -69,17 +71,9 @@ function ExpenseForm() {
             <div className='selects input-control'>
                 <select required value={category} name='category' id='category' onChange={handleInput('category')}>
                     <option value="" disabled>Select Option</option>
-                    <option value="groceries">Groceries</option>
-                    <option value="clothes">Clothes</option>
-                    <option value="shopping">Shopping</option>
-                    <option value="entertainment">Entertainment</option>
-                    <option value="food">Food</option>
-                    <option value="stocks">Stocks</option>
-                    <option value="subscriptions">Subscriptions</option>
-                    <option value="traveling">Traveling</option>
-                    <option value="rent">Rent</option>
-                    <option value="school">School</option>
-                    <option value="misc">Misc.</option>
+                    {expense_options.map((option) => (
+                        <option key={option} value={option}>{option}</option>
+                    ))}
                 </select>
             </div>
             <div className='submit-btn'>

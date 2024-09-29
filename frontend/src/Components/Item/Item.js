@@ -14,7 +14,7 @@ function Item(
         switch(category) {
             case 'Salary':
                 return money
-            case 'SportsBetting':
+            case 'Sports Betting':
                 return sportsbet
             case 'Payment':
                 return money
@@ -29,27 +29,27 @@ function Item(
 
     const expenseIcon = () => {
         switch(category) {
-            case 'groceries':
+            case 'Groceries':
                 return food
-            case 'clothes':
+            case 'Clothes':
                 return clothing
-            case 'shopping':
+            case 'Shopping':
                 return shopping
-            case 'entertainment':
+            case 'Entertainment':
                 return gift
-            case 'misc':
+            case 'Misc':
                 return misc
-            case 'food':
+            case 'Food':
                 return takeout
-            case 'stocks':
+            case 'Stocks':
                 return stocks
-            case 'subscriptions':
+            case 'Subscriptions':
                 return tv
-            case 'traveling':
+            case 'Traveling':
                 return travel
-            case 'rent':
+            case 'Rent':
                 return house
-            case 'school':
+            case 'School':
                 return school
             default:
                 return ''
@@ -69,6 +69,7 @@ function Item(
                         <p>{calendar}{dateFormating(date)}</p>
                     </div>
                     <div className='btn-con'>
+                        {deleteItem === undefined ? <></> :
                         <Button
                             icon={trash}
                             bPad={'1rem'}
@@ -78,7 +79,7 @@ function Item(
                             iColor={'#fff'}
                             hColor={'var(--color-green)'}
                             onClick={() => deleteItem(id)}>
-                        </Button>
+                        </Button>}
                     </div>
                 </div>
             </div>

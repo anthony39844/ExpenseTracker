@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react'
 import styled from "styled-components"
-import avatar from '../../img/avatar.png'
 import { menuItems } from '../../utils/menuItems'
 import { X, signout } from '../../utils/icons'
 import Button from '../Button/Button'
 import { useGlobalContext } from '../../context/globalContext'
+import ProfileIcon from './ProfileIcon'
 
 function Navigation({active, setActive}) {
     const {setLoggedIn, setError, deleteUser, username, getUsername} = useGlobalContext()
@@ -23,11 +23,11 @@ function Navigation({active, setActive}) {
         e.preventDefault()
         deleteUser()
     }
-
+    
     return (
     <NavStyled>
         <div className='user-con'>
-            <img src={avatar} alt=''></img>
+            <ProfileIcon></ProfileIcon>
             <div className='text'>
                 <h2>{username}</h2>
             </div>
@@ -90,15 +90,6 @@ const NavStyled = styled.nav`
         display: flex;
         align-items: center;
         gap: 1rem;
-
-        img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            background: var(--background);
-            box-shadow: 0px 1px 17px var(--box-shadow-color);
-        }
         
         h2 {
             color: var(--primary-color-full);

@@ -1,0 +1,29 @@
+.transaction-list {
+    display: flex;
+    justify-content: space-between;
+}
+
+.incomes {
+    width: 45%;
+    overflow-y: auto;
+    height: 820px;
+}
+
+.expenses {
+    width: 45%;
+    overflow-y: auto;
+    height: 820px;
+}
+
+.all-incomes {
+    margin-top: 10px;
+}
+
+.all-expenses {
+    margin-top: 10px;
+}
+
+.total {
+    font-size: 25px;
+    font-weight: bold;
+}
