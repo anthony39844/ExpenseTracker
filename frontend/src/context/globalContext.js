@@ -95,7 +95,7 @@ export const GlobalProvider = ({children}) => {
 
     const createAccount = async (user, pass) => {
         try {
-            const response = await axios.post(`${BASE_URL}add-user`, {username: user, password: pass}, {withCredentials: true})
+            const response = await axios.post(`${BASE_URL}create-user`, {username: user, password: pass}, {withCredentials: true})
             setLoggedIn(true)
         }
         catch (err) {
