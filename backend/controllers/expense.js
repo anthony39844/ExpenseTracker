@@ -1,8 +1,13 @@
 const ExpenseSchema = require("../models/expenseModel");
 
 exports.deleteExpense = async (req, res) => {
+  const userId = req.session.userId;
   const { id } = req.params;
   try {
+    const expense = await ExpenseSchema.findOne({ _id: id, userId: userId });
+    if (!expense) {
+      return res.status(404).json({ message: "Expense not found" });
+    }
     const result = await ExpenseSchema.findByIdAndDelete(id);
 
     if (!result) {

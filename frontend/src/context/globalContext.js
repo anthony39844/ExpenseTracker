@@ -28,7 +28,7 @@ export const GlobalProvider = ({children}) => {
     }
 
     const deleteIncome = async (id) => {
-        const response = await axios.delete(`${BASE_URL}delete-income/${id}`)
+        const response = await axios.delete(`${BASE_URL}delete-income/${id}`, {withCredentials: true})
         getIncomes()
     }
 
@@ -56,7 +56,7 @@ export const GlobalProvider = ({children}) => {
     }
 
     const deleteExpense = async (id) => {
-        const response = await axios.delete(`${BASE_URL}delete-expense/${id}`)
+        const response = await axios.delete(`${BASE_URL}delete-expense/${id}`, {withCredentials: true})
         getExpenses()
     }
 
