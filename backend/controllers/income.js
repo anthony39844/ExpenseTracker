@@ -1,6 +1,6 @@
-const IncomeSchema = require("../models/incomeModel");
+import IncomeSchema from "../models/incomeModel.js";
 
-exports.deleteIncome = async (req, res) => {
+export const deleteIncome = async (req, res) => {
   const userId = req.session.userId;
   const { id } = req.params;
   try {
@@ -15,19 +15,19 @@ exports.deleteIncome = async (req, res) => {
   }
 };
 
-exports.getIncomes = async (req, res) => {
+export const getIncomes = async (req, res) => {
   const userId = req.session.userId;
   try {
-    const incomes = await IncomeSchema.find({ userId: userId })
-      .find()
-      .sort({ createdAt: -1 });
+    const incomes = await IncomeSchema.find({ userId: userId }).sort({
+      createdAt: -1,
+    });
     res.status(200).json(incomes);
   } catch (error) {
     res.status(500).json({ message: "Server Error" });
   }
 };
 
-exports.addIncome = async (req, res) => {
+export const addIncome = async (req, res) => {
   const userId = req.session.userId;
   const { title, amount, category, date } = req.body;
 

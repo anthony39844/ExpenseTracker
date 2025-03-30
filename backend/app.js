@@ -1,52 +1,64 @@
-const db = require("./db/db.js");
-const { readdirSync } = require("fs");
-const express = require("express");
-const session = require("express-session");
-const cors = require("cors");
-const mongoose = require("mongoose");
-const MongoStore = require("connect-mongo");
+import express from "express";
+import cors from "cors";
+import session from "express-session";
+import MongoStore from "connect-mongo";
+import dotenv from "dotenv";
+import connectDB from "./db/db.js";
+
+dotenv.config();
+
+// Check for required environment variables
+if (!process.env.SESSION_SECRET) {
+  console.error(
+    "ERROR: Required environment variable is not properly configured"
+  );
+  process.exit(1);
+}
+
 const app = express();
 
-require("dotenv").config();
+connectDB();
 
-const PORT = process.env.PORT;
-const mongoUrl = process.env.MONGODB_URI;
+const sessionStore = MongoStore.create({
+  mongoUrl: process.env.MONGODB_URI,
+  collection: "sessions",
+  ttl: 24 * 60 * 60, 
+});
 
-mongoose
-  .connect(mongoUrl)
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error("MongoDB connection error:", err));
-
-//middlewares
+// Middleware
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:3000", // Update to frontend origin
+    origin: "http://localhost:3000",
     credentials: true,
   })
 );
-
-//session
 app.use(
   session({
-    secret: process.env.SECRET,
+    name: "sessionId", 
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    store: MongoStore.create({ mongoUrl: mongoUrl }),
-    cookie: { maxAge: 24 * 60 * 60 * 1000 },
+    cookie: {
+      secure: process.env.NODE_ENV === "production",
+      httpOnly: true, 
+      maxAge: 24 * 60 * 60 * 1000,
+      sameSite: "lax",
+    },
+    store: sessionStore,
+    rolling: true, 
   })
 );
 
-//routes
-readdirSync("./routes").map((route) =>
-  app.use("/api/v1", require("./routes/" + route))
-);
+// Routes
+const routes = ["./routes/transactions.js"];
 
-const server = () => {
-  db();
-  app.listen(PORT, () => {
-    console.log("listening to Port", PORT);
-  });
-};
+for (const route of routes) {
+  const router = await import(route);
+  app.use("/api/v1", router.default);
+}
 
-server();
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});

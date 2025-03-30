@@ -1,6 +1,6 @@
-const UserSchema = require("../models/userModel");
+import UserSchema from "../models/userModel.js"
 
-exports.createUser = async (req, res) => {
+export const createUser = async (req, res) => {
   const { username, password } = req.body;
 
   try {
@@ -29,7 +29,7 @@ exports.createUser = async (req, res) => {
   }
 };
 
-exports.getUsers = async (req, res) => {
+export const getUsers = async (req, res) => {
   try {
     const users = await UserSchema.find().sort({ createdAt: -1 });
     res.status(200).json(users);
@@ -38,7 +38,7 @@ exports.getUsers = async (req, res) => {
   }
 };
 
-exports.deleteUser = async (req, res) => {
+export const deleteUser = async (req, res) => {
   const { id } = req.params;
   UserSchema.findByIdAndDelete(id)
     .then((user) => {
@@ -49,7 +49,7 @@ exports.deleteUser = async (req, res) => {
     });
 };
 
-exports.loginUser = async (req, res) => {
+export const loginUser = async (req, res) => {
   const { username, password } = req.body;
 
   try {
@@ -68,7 +68,7 @@ exports.loginUser = async (req, res) => {
   }
 };
 
-exports.getCurrentUser = async (req, res) => {
+export const getCurrentUser = async (req, res) => {
   try{
     const user = await UserSchema.findOne( {userId: req.session.userId})
     res.status(200).json(user)

@@ -1,22 +1,20 @@
-const {
-  deleteIncome,
-  getIncomes,
-  addIncome,
-} = require("../controllers/income");
-const {
+import { deleteIncome, getIncomes, addIncome } from "../controllers/income.js";
+import {
   deleteExpense,
   getExpenses,
   addExpense,
-} = require("../controllers/expense");
-const {
+} from "../controllers/expense.js";
+import {
   createUser,
   deleteUser,
   loginUser,
   getUsers,
   getCurrentUser,
-} = require("../controllers/user");
-const { authenticate } = require("../authenticate");
-const router = require("express").Router();
+} from "../controllers/user.js";
+import { authenticate } from "../authenticate.js";
+import express from "express";
+
+const router = express.Router();
 
 router
   .delete("/delete-income/:id", authenticate, deleteIncome)
@@ -29,6 +27,6 @@ router
   .post("/create-user", createUser)
   .post("/login-user", loginUser)
   .get("/current-user", authenticate, getCurrentUser)
-  .get("/get-users", getUsers)
+  .get("/get-users", getUsers);
 
-module.exports = router;
+export default router;

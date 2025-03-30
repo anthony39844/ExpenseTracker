@@ -1,6 +1,6 @@
-const ExpenseSchema = require("../models/expenseModel");
+import ExpenseSchema from "../models/expenseModel.js"
 
-exports.deleteExpense = async (req, res) => {
+export const deleteExpense = async (req, res) => {
   const userId = req.session.userId;
   const { id } = req.params;
   try {
@@ -20,7 +20,7 @@ exports.deleteExpense = async (req, res) => {
   }
 };
 
-exports.getExpenses = async (req, res) => {
+export const getExpenses = async (req, res) => {
   const userId = req.session.userId;
   try {
     const expenses = await ExpenseSchema.find({ userId: userId })
@@ -32,7 +32,7 @@ exports.getExpenses = async (req, res) => {
   }
 };
 
-exports.addExpense = async (req, res) => {
+export const addExpense = async (req, res) => {
   const userId = req.session.userId;
   const { title, amount, category, date } = req.body;
 
