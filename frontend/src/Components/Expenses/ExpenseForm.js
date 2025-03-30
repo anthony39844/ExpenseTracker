@@ -82,7 +82,7 @@ function ExpenseForm() {
                         icon={plus}
                         bPad={'.8rem 1.6rem'}
                         bRad={'30px'}
-                        bg={'var(--color-accent)'}
+                        bg={'var(--btns)'}
                         color={'#fff'}>
                     </Button>
             </div>
@@ -105,9 +105,9 @@ const ExpenseFormStyled = styled.form`
         background: transparent;
         resize: none;
         box-shadow: 0px 1px 15px var(--box-shadow-color);
-        color: var(--primary-color9);
+        color: var(--primary-text9);
         &::placeholder {
-            color: var(--primary-color4);
+            color: var(--primary-text4);
         }
         .input-control {
             input {
@@ -118,9 +118,9 @@ const ExpenseFormStyled = styled.form`
             display: flex;
             justify-content: flex-end;
             select {
-                color: var(--primary-color4);
+                color: var(--primary-text4);
                 &:focus, &:active {
-                    color: var(--primary-color-full);
+                    color: var(--primary-text);
                 }
             }
         }

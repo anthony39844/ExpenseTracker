@@ -2,8 +2,10 @@ import React, { useEffect } from 'react'
 import { InnerLayout } from '../../styles/Layouts';
 import { dollar } from '../../utils/icons';
 import { useGlobalContext } from '../../context/globalContext';
-import { income_options } from '../Form/form';
+import { income_options } from '../Incomes/IncomeForm';
 import { expense_options } from '../Expenses/ExpenseForm';
+import BarGraph from '../Chart/BarGraph';
+import '../../styles/Analytics.css'
 
 const income_dict = {}
 const expense_dict = {}
@@ -40,20 +42,30 @@ function Analytics() {
     return (
         <div>
             <InnerLayout>
-            <div className='transaction-list'>
+            <div className='analytics-list'>
                     <div className='incomes'>
-                        <h2>Income</h2>
-                        {sortIncomes()}
-                        {income_options.map((option) => {
-                            return <p>{option}: {dollar}{income_dict[option]}</p>
-                        })}
+                        <div className='income-cat'>
+                            <h1>Income</h1>
+                            {sortIncomes()}
+                            {income_options.map((option) => {
+                                return <p>{option}: {dollar}{income_dict[option]}</p>
+                            })}
+                        </div>
+                        <div className='bar-graph'>
+                            {<BarGraph labels={income_options} values={income_dict}></BarGraph>}
+                        </div>
                     </div>
                     <div className='expenses'>
-                        <h2>Expenses</h2>
-                        {sortExpenses()}
-                        {expense_options.map((option) => {
-                            return <p>{option}: {dollar}{expense_dict[option]}</p>
-                        })}
+                        <div className='expense-cat'>
+                            <h1>Expenses</h1>
+                            {sortExpenses()}
+                            {expense_options.map((option) => {
+                                return <p>{option}: {dollar}{expense_dict[option]}</p>
+                            })}
+                        </div>
+                        <div className='bar-graph'>
+                            {<BarGraph labels={expense_options} values={expense_dict}></BarGraph>}
+                        </div>
                     </div>
                 </div>
             </InnerLayout>

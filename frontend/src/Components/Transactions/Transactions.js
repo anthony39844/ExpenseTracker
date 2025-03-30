@@ -7,7 +7,7 @@ import '../../styles/Transactions.css'
 import IncomeItem from '../Item/Item.js';
 
 function Transactions() {
-    const {incomes, expenses, totalExpenses, totalIncome, getExpenses, getIncomes} = useGlobalContext()
+    const {incomes, expenses, totalExpenses, totalIncome, getExpenses, getIncomes, deleteExpense, deleteIncome} = useGlobalContext()
 
     useEffect(() => {
         getIncomes()
@@ -18,45 +18,53 @@ function Transactions() {
         <div>
             <InnerLayout>
                 <div className='transaction-list'>
-                    <div className='incomes'>
+                    <div className='incomes-list'>
+                        {incomes.length === 0 ? <h1>No Incomes</h1> :
+                        <>
                         <h1>Income</h1>
                             <h2>Total Income:  {dollar}{totalIncome()}</h2>
                         <div className='all-incomes'>
-                        <h2>All Transactions</h2>
-                        {incomes.map((income) => {
-                            const {_id, title, amount, date, category, type} = income;
-                            return <IncomeItem
-                            key={_id}
-                            id={_id}
-                            title={title}
-                            amount={amount}
-                            date={date}
-                            type={type}
-                            category={category}
-                            indicatorColor='var(--color-green)'
-                            deleteItem={undefined}/>
-                        })}
+                            <h2>All Transactions</h2>
+                            {incomes.map((income) => {
+                                const {_id, title, amount, date, category, type} = income;
+                                return <IncomeItem
+                                key={_id}
+                                id={_id}
+                                title={title}
+                                amount={amount}
+                                date={date}
+                                type={type}
+                                category={category}
+                                indicatorColor='var(--color-green)'
+                                deleteItem={deleteIncome}/>
+                            })}
                         </div>
+                        </>
+                        }
                     </div>
-                    <div className='expenses'>
+                    <div className='expenses-list'>
+                        {expenses.length === 0 ? <h1>No Expenses</h1> : 
+                        <>
                         <h1>Expenses</h1>  
                             <h2>Total Expenses:  {dollar}{totalExpenses()}</h2>
                         <div className='all-expenses'>
-                        <h2>All Transactions</h2>
-                        {expenses.map((expense) => {
-                            const {_id, title, amount, date, category, type} = expense;
-                            return <IncomeItem
-                            key={_id}
-                            id={_id}
-                            title={title}
-                            amount={amount}
-                            date={date}
-                            type={type}
-                            category={category}
-                            indicatorColor='var(--color-green)'
-                            deleteItem={undefined}/>
-                        })}
+                            <h2>All Transactions</h2>
+                            {expenses.map((expense) => {
+                                const {_id, title, amount, date, category, type} = expense;
+                                return <IncomeItem
+                                key={_id}
+                                id={_id}
+                                title={title}
+                                amount={amount}
+                                date={date}
+                                type={type}
+                                category={category}
+                                indicatorColor='var(--color-green)'
+                                deleteItem={deleteExpense}/>
+                            })}
                         </div>
+                        </>
+                        }
                     </div>
                 </div>
             </InnerLayout>

@@ -1,0 +1,16 @@
+.analytics-list {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.incomes {
+    display: flex;
+    flex-direction: column; 
+    justify-content: space-between;
+}
+
+.expenses {
+    display: flex;
+    flex-direction: column; 
+    justify-content: space-between;
+}

@@ -1,6 +1,5 @@
 import styled from "styled-components"
-import {React, useState, useMemo, useContext} from 'react'
-import bg from './img/bg.png'
+import {React, useState, useMemo} from 'react'
 import { MainLayout } from "./styles/Layouts";
 import Orb from "./Components/Orb/Orb";
 import Navigation from "./Components/Navigation/Navigation";
@@ -38,10 +37,10 @@ function App() {
     return <Orb/>
   }, [])
   return (
-    <AppStyled bg={bg} className="App">
+    <AppStyled className="App">
       <MainLayout>
       {!loggedIn 
-        ? <Home /> 
+        ? <Home setActive={setActive}/> 
         : (
             <>
                 {orbMemo}
@@ -58,11 +57,11 @@ function App() {
 
 const AppStyled = styled.div`
   height: 100vh;
-  background-image: url(${props => props.bg});
+  background-color: var(--primary-darker);
   position: relative;
   main{
     flex: 1;
-    background: rgba(252, 246, 249, 0.78);
+    background: var(--background-color);
     border: 3px solid var(--white);
     backdrop-filter: blur(4.5px);
     border-radius: 32px;

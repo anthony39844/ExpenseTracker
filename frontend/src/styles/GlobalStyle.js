@@ -9,18 +9,23 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     :root {
-        --primary-color: #222260;
-        --primary-color4: rgba(34, 34, 96, 0.4);
-        --primary-color6: rgba(34, 34, 96, 0.6);
-        --primary-color9: rgba(34, 34, 96, 0.9);
-        --primary-color-full: rgba(34, 34, 96, 1);
+        --primary-darkest: #0d1b2a;
+        --primary-darker: #1b263b;
+        --primary-mid: #415a77;
+        --primary-lighter: #778da9;
+        --primary-light: #e0e1dd;
+        --primary-text4: rgba(34, 34, 96, 0.4);
+        --primary-text6: rgba(34, 34, 96, 0.6);
+        --primary-text9: rgba(34, 34, 96, 0.9);
+        --primary-text: rgba(34, 34, 96, 1);
         --box-shadow-color: rgba(0, 0, 0, 0.06);
-        --background-color: rgba(252, 246, 249, 0.78);
+        --background-color: rgba(252, 246, 249, 0.55);
+        --btns: #0d1b2a;
         --color-green: #42AD00;
         --color-gray: #aaa;
         --color-accent: #F56692;
         --color-delete: #FF0000;
-        --background: #FCF6F9;
+        --item-background: #FCF6F9;
         --white: #FFFFFF;
     }
 
@@ -32,7 +37,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     h1, h2, h3, h4, h5, h6 {
-        color: var(--primary-color)
+        color: var(--primary-text)
     }
 
     .error {

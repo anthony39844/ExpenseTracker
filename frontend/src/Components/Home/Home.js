@@ -4,7 +4,7 @@ import Button from '../Button/Button'
 import { signout } from '../../utils/icons';
 import { useGlobalContext } from '../../context/globalContext'
 
-function Home() {
+function Home({setActive}) {
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
@@ -15,19 +15,22 @@ function Home() {
         e.preventDefault()
         setError('')
         logIn(username, password)
+        setActive(1)
     }
 
     const handleCreateAccount = (e) => {
         e.preventDefault()
         setError('')
         createAccount(username, password)
+        setActive(1)
     }
 
     return (
     <HomeStyled>
+        <h1 style={{color: '#fff', marginBottom: '15px'}}>Expense Tracker</h1>
         <div className='username'>
             <input 
-                type='text'
+                type='username'
                 value={username}
                 name={'username'}
                 placeholder="Username"
@@ -53,7 +56,7 @@ function Home() {
                 icon={signout}
                 bPad={'.8rem 1.6rem'}
                 bRad={'30px'}
-                bg={'var(--color-accent)'}
+                bg={'var(--btns)'}
                 color={'#fff'}
                 onClick={handleCreateAccount}>
             </Button>
@@ -64,7 +67,7 @@ function Home() {
                 icon={signout}
                 bPad={'.8rem 1.6rem'}
                 bRad={'30px'}
-                bg={'var(--color-accent)'}
+                bg={'var(--btns)'}
                 color={'#fff'}
                 onClick={handleLogIn}>
             </Button>
@@ -76,27 +79,27 @@ function Home() {
 
 const HomeStyled = styled.div`
     display: flex;
-    flex-direction: column; /* Align children vertically */
-    justify-content: center; /* Centers vertically */
-    align-items: center; /* Centers horizontally */
-    width: 100%; /* Adjust the width as needed */
-    margin: 0 auto; /* Centers the div horizontally */
-    padding: 20px; /* Optional for some spacing */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%; 
+    margin: 0 auto;
+    padding: 20px; 
     input {
-        width: 100%; /* Adjust the width of the input */
-        height: 50px; /* Adjust the height of the input */
-        font-size: 20px; /* Increase the font size */
-        margin: 10px 0; /* Adds some spacing between inputs */
-        padding: 15px; /* Optional for padding inside the input */
+        width: 100%;
+        height: 50px;
+        font-size: 20px;
+        margin: 10px 0;
+        padding: 15px; 
         box-shadow: 0px 1px 15px var(--box-shadow-color);
-        color: var(--primary-color9);
+        color: var(--primary-text9);
         font-family:  inherit;
         outline: none;
         border-radius: 5px;
         border: 2px solid #fff;
         resize: none;
         &::placeholder {
-            color: var(--primary-color4);
+            color: var(--primary-text4);
         }
     }
     .submit-btn {

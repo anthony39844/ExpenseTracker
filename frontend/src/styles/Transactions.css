@@ -3,13 +3,13 @@
     justify-content: space-between;
 }
 
-.incomes {
+.incomes-list {
     width: 45%;
     overflow-y: auto;
     height: 820px;
 }
 
-.expenses {
+.expenses-list {
     width: 45%;
     overflow-y: auto;
     height: 820px;

@@ -50,7 +50,7 @@ function Navigation({active, setActive}) {
                 icon={signout}
                 bPad={'.8rem 1.6rem'}
                 bRad={'30px'}
-                bg={'var(--color-accent)'}
+                bg={'var(--btns)'}
                 color={'#fff'}
                 onClick={handleSubmit}>
                 {signout}
@@ -61,7 +61,7 @@ function Navigation({active, setActive}) {
                     icon={X}
                     bPad={'.8rem 1.6rem'}
                     bRad={'30px'}
-                    bg={'var(--color-accent)'}
+                    bg={'var(--btns)'}
                     color={'#fff'}
                     onClick={handleDeletion}>
                     {X}
@@ -92,10 +92,10 @@ const NavStyled = styled.nav`
         gap: 1rem;
         
         h2 {
-            color: var(--primary-color-full);
+            color: var(--primary-text);
         }
         p {
-            color: var(--primary-color6)
+            color: var(--primary-text6)
         }
     }
 
@@ -112,22 +112,22 @@ const NavStyled = styled.nav`
             font-weight: 500;
             cursor: pointer;
             transition: all .4s ease-in-out;
-            color: var(--primary-color6);
+            color: var(--primary-text6);
             padding-left: 1rem;
             position: relative;
         }
 
         i {
-            color: var(--primary-color6);
+            color: var(--primary-text6);
             font-size: 1.4rem;
             transition: all .4s ease-in-out;
         }
     }
 
     .active {
-        color: var(--primary-color-full) !important;
+        color: var(--primary-text) !important;
         i {
-            color: var(--primary-color-full);
+            color: var(--primary-text);
         }
         &::before {
             content: "";

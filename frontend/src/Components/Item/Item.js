@@ -74,7 +74,7 @@ function Item(
                             icon={trash}
                             bPad={'1rem'}
                             bRad={'50%'}
-                            bg={'var(--primary-color)'}
+                            bg={'var(--btns)'}
                             color={'#fff'}
                             iColor={'#fff'}
                             hColor={'var(--color-green)'}
@@ -88,7 +88,7 @@ function Item(
 }
 
 const IncomeStyled = styled.div`
-    background: var(--background);
+    background: var(--item-background);
     border: 2px solid var(--white);
     box-shadow: 0px 1px 15px var(--box-shadow-color);
     border-radius: 20px;
@@ -146,7 +146,7 @@ const IncomeStyled = styled.div`
                     display: flex;
                     align-items: center;
                     gap: 0.5rem;
-                    color: var(--primary-color);
+                    color: var(--primary-text);
                     opacity: 0.8;
                 }
             }

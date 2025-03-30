@@ -49,7 +49,7 @@ function Chart() {
 }
 
 const ChartStyled = styled.div`
-    background: var(--background);
+    background: var(--item-background);
     border: 2px solid var(--white);
     box-shadow: 0px 1px 15px var(--box-shadow-color);
     padding: 1rem;
