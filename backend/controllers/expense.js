@@ -1,7 +1,7 @@
 import ExpenseSchema from "../models/expenseModel.js"
 
 export const deleteExpense = async (req, res) => {
-  const userId = req.session.userId;
+  const userId = req.user.id;
   const { id } = req.params;
   try {
     const expense = await ExpenseSchema.findOne({ _id: id, userId: userId });
@@ -21,7 +21,7 @@ export const deleteExpense = async (req, res) => {
 };
 
 export const getExpenses = async (req, res) => {
-  const userId = req.session.userId;
+  const userId = req.user.id;
   try {
     const expenses = await ExpenseSchema.find({ userId: userId })
       .find()
@@ -33,7 +33,7 @@ export const getExpenses = async (req, res) => {
 };
 
 export const addExpense = async (req, res) => {
-  const userId = req.session.userId;
+  const userId = req.user.id;
   const { title, amount, category, date } = req.body;
 
   const expense = ExpenseSchema({
@@ -55,7 +55,6 @@ export const addExpense = async (req, res) => {
     await expense.save();
     res.status(200).json({ message: "Expense Added" });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "Server Error" });
   }
 };

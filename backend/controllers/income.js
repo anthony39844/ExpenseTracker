@@ -1,8 +1,9 @@
 import IncomeSchema from "../models/incomeModel.js";
 
 export const deleteIncome = async (req, res) => {
-  const userId = req.session.userId;
+  const userId = req.user.id;
   const { id } = req.params;
+
   try {
     const income = await IncomeSchema.findOne({ _id: id, userId: userId });
     if (!income) {
@@ -16,19 +17,20 @@ export const deleteIncome = async (req, res) => {
 };
 
 export const getIncomes = async (req, res) => {
-  const userId = req.session.userId;
   try {
-    const incomes = await IncomeSchema.find({ userId: userId }).sort({
+    const userId = req.user.id;
+    const incomes = await IncomeSchema.find({ userId }).sort({
       createdAt: -1,
     });
     res.status(200).json(incomes);
   } catch (error) {
-    res.status(500).json({ message: "Server Error" });
+    console.error("Error fetching incomes:", error);
+    res.status(500).json({ message: "Error fetching incomes" });
   }
 };
 
 export const addIncome = async (req, res) => {
-  const userId = req.session.userId;
+  const userId = req.user.id;
   const { title, amount, category, date } = req.body;
 
   const income = IncomeSchema({

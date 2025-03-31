@@ -1,11 +1,17 @@
-import UserSchema from "../models/userModel.js"
+import bcrypt from "bcryptjs";
+import UserSchema from "../models/userModel.js";
+import { generateToken } from "../middleware/authenticate.js";
 
 export const createUser = async (req, res) => {
-  const { username, password } = req.body;
-
   try {
-    //validations
-    if (!username || !password || username === "" || password === "") {
+    const { username, password } = req.body;
+    // Validations
+    if (
+      !username ||
+      !password ||
+      username.trim() === "" ||
+      password.trim() === ""
+    ) {
       return res.status(400).json({ message: "All fields are required" });
     }
     const userExists = await UserSchema.findOne({ username });
@@ -13,28 +19,31 @@ export const createUser = async (req, res) => {
       return res.status(400).json({ message: "Username already taken" });
     }
 
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
     const user = new UserSchema({
       username,
-      password,
+      password: hashedPassword,
     });
 
-    user.userId = user._id;
-    req.session.userId = user._id;
-
     await user.save();
-    res.status(200).json({ message: "User Added" });
-  } catch (error) {
-    console.error("Error saving user:", error);
-    res.status(500).json({ message: "Server Error" });
-  }
-};
 
-export const getUsers = async (req, res) => {
-  try {
-    const users = await UserSchema.find().sort({ createdAt: -1 });
-    res.status(200).json(users);
+    const token = generateToken(user);
+
+    res.status(201).json({
+      message: "User created successfully",
+      user: {
+        id: user._id,
+        username: user.username,
+      },
+      token,
+    });
   } catch (error) {
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({
+      message: "Error creating account",
+      error: process.env.NODE_ENV === "development" ? error.message : undefined,
+    });
   }
 };
 
@@ -50,30 +59,27 @@ export const deleteUser = async (req, res) => {
 };
 
 export const loginUser = async (req, res) => {
-  const { username, password } = req.body;
-
   try {
+    const { username, password } = req.body;
+
     const user = await UserSchema.findOne({ username });
-    if (!user || password != user.password) {
+    if (!user) {
+      return res.status(400).json({ message: "Wrong username or password" });
+    }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
       return res.status(400).json({ message: "Wrong username or password" });
     }
 
-    req.session.userId = user._id;
+    const token = generateToken(user);
+
     res.status(200).json({
       message: "Login successful",
       user: { id: user._id, username: user.username },
+      token: token,
     });
   } catch (err) {
+    console.error("Login error:", err);
     res.status(500).json({ message: "Could not log in" });
   }
 };
-
-export const getCurrentUser = async (req, res) => {
-  try{
-    const user = await UserSchema.findOne( {userId: req.session.userId})
-    res.status(200).json(user)
-  } catch(error) {
-      res.status(500).json({message: "Server Error"})
-  }
-};
-  

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import styled from "styled-components"
 import { menuItems } from '../../utils/menuItems'
 import { X, signout } from '../../utils/icons'
@@ -7,17 +7,7 @@ import { useGlobalContext } from '../../context/globalContext'
 import ProfileIcon from './ProfileIcon'
 
 function Navigation({active, setActive}) {
-    const {setLoggedIn, setError, deleteUser, username, getUsername} = useGlobalContext()
-
-    useEffect(() => {
-        getUsername()
-    }, [])
-
-    const handleSubmit = e => {
-        e.preventDefault()
-        setLoggedIn(false)
-        setError('')
-    }
+    const {signOut, setError, deleteUser, username} = useGlobalContext()
 
     const handleDeletion = e => {
         e.preventDefault()
@@ -48,14 +38,14 @@ function Navigation({active, setActive}) {
             <Button
                 name={'Sign Out'}
                 icon={signout}
-                bPad={'.8rem 1.6rem'}
-                bRad={'30px'}
-                bg={'var(--btns)'}
-                color={'#fff'}
-                onClick={handleSubmit}>
+                bPad={".8rem 1.6rem"}
+                bRad={"30px"}
+                bg={"var(--btns)"}
+                color={"#fff"}
+                onClick={signOut}>
                 {signout}
             </Button>
-            <div className='delete-btn'>
+            <div className="delete-btn">
                 <Button
                     name={'Delete Account'}
                     icon={X}
