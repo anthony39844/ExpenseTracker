@@ -1,6 +1,9 @@
 import bcrypt from "bcryptjs";
 import UserSchema from "../models/userModel.js";
 import { generateToken } from "../middleware/authenticate.js";
+import Expense from "../models/expenseModel.js";
+import Income from "../models/incomeModel.js";
+import User from "../models/userModel.js";
 
 export const createUser = async (req, res) => {
   try {
@@ -48,14 +51,20 @@ export const createUser = async (req, res) => {
 };
 
 export const deleteUser = async (req, res) => {
-  const { id } = req.params;
-  UserSchema.findByIdAndDelete(id)
-    .then((user) => {
-      res.status(200).json({ message: "User " + user.username + " deleted" });
-    })
-    .catch((err) => {
-      res.status(500).json({ message: "Server Error" });
+  try {
+    const userId = req.user.id;
+    await Promise.all([
+      Expense.deleteMany({ userId }),
+      Income.deleteMany({ userId }),
+      User.findByIdAndDelete(userId)
+    ]);
+    res.status(200).json({ message: "User deleted" });
+  } catch (error) {
+    res.status(500).json({
+      message: "Could not deleting user",
+      error: process.env.NODE_ENV === "development" ? error.message : undefined,
     });
+  }
 };
 
 export const loginUser = async (req, res) => {
