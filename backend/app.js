@@ -19,7 +19,7 @@ app.use(
 );
 
 // Routes
-const routes = ["./routes/transactions.js"];
+const routes = ["./routes/routes.js"];
 
 for (const route of routes) {
   const router = await import(route);
