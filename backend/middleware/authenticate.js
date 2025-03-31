@@ -13,13 +13,3 @@ export const verifyToken = (req, res, next) => {
     res.status(401).json({ message: "Unauthorized" });
   }
 };
-
-export const generateToken = (user) => {
-  const userData = {
-    id: user._id,
-    username: user.username,
-  };
-  return jwt.sign(userData, process.env.JWT_SECRET, {
-    expiresIn: "24hr",
-  });
-};

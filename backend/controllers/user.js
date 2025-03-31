@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import UserSchema from "../models/userModel.js";
-import { generateToken } from "../middleware/authenticate.js";
+import { generateToken } from "./auth.js";
 import Expense from "../models/expenseModel.js";
 import Income from "../models/incomeModel.js";
 import User from "../models/userModel.js";
@@ -32,7 +32,7 @@ export const createUser = async (req, res) => {
 
     await user.save();
 
-    const token = generateToken(user);
+    const { accessToken, refreshToken } = generateToken(user);
 
     res.status(201).json({
       message: "User created successfully",
@@ -40,7 +40,8 @@ export const createUser = async (req, res) => {
         id: user._id,
         username: user.username,
       },
-      token,
+      accessToken,
+      refreshToken,
     });
   } catch (error) {
     res.status(500).json({
@@ -80,15 +81,17 @@ export const loginUser = async (req, res) => {
       return res.status(400).json({ message: "Wrong username or password" });
     }
 
-    const token = generateToken(user);
+    const { accessToken, refreshToken } = generateToken(user);
 
     res.status(200).json({
       message: "Login successful",
       user: { id: user._id, username: user.username },
-      token: token,
+      accessToken,
+      refreshToken,
     });
   } catch (err) {
     console.error("Login error:", err);
     res.status(500).json({ message: "Could not log in" });
   }
 };
+

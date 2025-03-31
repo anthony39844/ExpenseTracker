@@ -10,6 +10,7 @@ import {
   loginUser,
 } from "../controllers/user.js";
 import { verifyToken } from "../middleware/authenticate.js";
+import { refreshToken } from "../controllers/auth.js";
 import express from "express";
 
 const router = express.Router();
@@ -24,5 +25,6 @@ router
   .delete("/delete-user/:id", verifyToken, deleteUser)
   .post("/create-user", createUser)
   .post("/login-user", loginUser)
+  .get("/refresh-token", refreshToken)
 
 export default router;

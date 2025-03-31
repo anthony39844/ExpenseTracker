@@ -4,7 +4,7 @@ const BASE_URL = "http://localhost:4000/api/v1/";
 
 export const getAuthHeader = () => ({
   headers: {
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
+    Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
   },
 });
 
@@ -14,7 +14,8 @@ export const setLocalStorage = (
   setUsername,
   setError
 ) => {
-  localStorage.setItem("token", response.data.token);
+  localStorage.setItem("refreshToken", response.data.refreshToken);
+  localStorage.setItem("accessToken", response.data.accessToken);
   localStorage.setItem("user", JSON.stringify(response.data.user));
   setLoggedIn(true);
   setUsername(response.data.user.username);
@@ -22,7 +23,8 @@ export const setLocalStorage = (
 };
 
 export const clearLocalStorage = (setLoggedIn, setUsername, setError) => {
-  localStorage.removeItem("token");
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
   localStorage.removeItem("user");
   setLoggedIn(false);
   setUsername("");
@@ -31,7 +33,8 @@ export const clearLocalStorage = (setLoggedIn, setUsername, setError) => {
 
 export const logIn = async (username, password, setError) => {
   try {
-    const response = await axios.post(`${BASE_URL}login-user`, {
+    const response = await axios.post(`${BASE_URL}login-user`, 
+    {
       username,
       password,
     });

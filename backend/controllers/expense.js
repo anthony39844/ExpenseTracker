@@ -24,7 +24,6 @@ export const getExpenses = async (req, res) => {
   const userId = req.user.id;
   try {
     const expenses = await ExpenseSchema.find({ userId: userId })
-      .find()
       .sort({ createdAt: -1 });
     res.status(200).json(expenses);
   } catch (error) {
