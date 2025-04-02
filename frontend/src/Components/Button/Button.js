@@ -27,7 +27,7 @@ const ButtonStyled = styled.button`
     transition: all .4s ease-in-out;
     box-shadow: 0px 1px 15px var(--box-shadow-color);
     &:hover {
-        background: var(--color-green) !important;
+        transform: scale(1.08);
     }
 `;
 

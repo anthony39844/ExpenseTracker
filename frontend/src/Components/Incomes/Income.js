@@ -2,11 +2,11 @@ import React, { useEffect } from 'react'
 import styled from "styled-components"
 import { InnerLayout } from '../../styles/Layouts';
 import { useGlobalContext } from '../../context/globalContext';
-import Form from '../Form/form';
+import Form from '../Incomes/IncomeForm';
 import IncomeItem from '../Item/Item.js';
 
 function Income() {
-    const {addIncome, incomes, getIncomes, deleteIncome, totalIncome} = useGlobalContext()
+    const {incomes, getIncomes, deleteIncome, totalIncome} = useGlobalContext()
 
     useEffect(() => {
         getIncomes()
@@ -26,14 +26,13 @@ function Income() {
                     <div className='form-container'>
                         <Form></Form>
                     </div>
-                    <div className='incomes'>
+                    <div className='incomes-item-list'>
                         {incomes.map((income) => {
-                            const {_id, title, amount, date, category, description, type} = income;
+                            const {_id, title, amount, date, category, type} = income;
                             return <IncomeItem
                                     key={_id}
                                     id={_id}
                                     title={title}
-                                    description={description}
                                     amount={amount}
                                     date={date}
                                     type={type}
@@ -56,7 +55,7 @@ const Incomestyled = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        background: var(--background);
+        background: var(--item-background);
         border: 2px solid var(--white);
         box-shadow: 0px 1px 15px var(--box-shadow-color);
         border-radius: 20px;
@@ -73,7 +72,7 @@ const Incomestyled = styled.div`
     .income-content {
         display: flex;
         gap: 2rem;
-        .incomes {
+        .incomes-item-list {
             flex: 1;
         }
     }

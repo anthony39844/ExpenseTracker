@@ -1,24 +1,32 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from "styled-components"
-import avatar from '../../img/avatar.png'
 import { menuItems } from '../../utils/menuItems'
-import { signout } from '../../utils/icons'
+import { X, signout } from '../../utils/icons'
+import Button from '../Button/Button'
+import { useGlobalContext } from '../../context/globalContext'
+import ProfileIcon from './ProfileIcon'
 
 function Navigation({active, setActive}) {
+    const {signOut, setError, deleteUser, username} = useGlobalContext()
+
+    const handleDeletion = e => {
+        e.preventDefault()
+        deleteUser()
+    }
+    
     return (
     <NavStyled>
         <div className='user-con'>
-            <img src={avatar} alt=''></img>
+            <ProfileIcon></ProfileIcon>
             <div className='text'>
-                <h2>Mike</h2>
-                <p>iourhf </p>
+                <h2>{username}</h2>
             </div>
         </div>
         <ul className='menu-items'>
             {menuItems.map((item) => {
                 return <li 
                     key={item.id}
-                    onClick={() => {setActive(item.id)}}
+                    onClick={() => {setActive(item.id); setError('')}}
                     className={active === item.id ? 'active' : ''}
                 >
                     {item.icon}
@@ -27,9 +35,28 @@ function Navigation({active, setActive}) {
             })}
         </ul>
         <div className='bottom-nav'>
-            <li>
-                {signout} Sign Out
-            </li>
+            <Button
+                name={'Sign Out'}
+                icon={signout}
+                bPad={".8rem 1.6rem"}
+                bRad={"30px"}
+                bg={"var(--btns)"}
+                color={"#fff"}
+                onClick={signOut}>
+                {signout}
+            </Button>
+            <div className="delete-btn">
+                <Button
+                    name={'Delete Account'}
+                    icon={X}
+                    bPad={'.8rem 1.6rem'}
+                    bRad={'30px'}
+                    bg={'var(--btns)'}
+                    color={'#fff'}
+                    onClick={handleDeletion}>
+                    {X}
+                </Button>
+            </div>
         </div>
     </NavStyled>
     )
@@ -53,21 +80,12 @@ const NavStyled = styled.nav`
         display: flex;
         align-items: center;
         gap: 1rem;
-
-        img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            background: var(--background);
-            box-shadow: 0px 1px 17px var(--box-shadow-color);
-        }
         
         h2 {
-            color: var(--primary-color-full);
+            color: var(--primary-text);
         }
         p {
-            color: var(--primary-color6)
+            color: var(--primary-text6)
         }
     }
 
@@ -84,22 +102,22 @@ const NavStyled = styled.nav`
             font-weight: 500;
             cursor: pointer;
             transition: all .4s ease-in-out;
-            color: var(--primary-color6);
+            color: var(--primary-text6);
             padding-left: 1rem;
             position: relative;
         }
 
         i {
-            color: var(--primary-color6);
+            color: var(--primary-text6);
             font-size: 1.4rem;
             transition: all .4s ease-in-out;
         }
     }
 
     .active {
-        color: var(--primary-color-full) !important;
+        color: var(--primary-text) !important;
         i {
-            color: var(--primary-color-full);
+            color: var(--primary-text);
         }
         &::before {
             content: "";
@@ -111,6 +129,10 @@ const NavStyled = styled.nav`
             background: #222260;
             border-radius: 0 10px 10px 0;
         }
+    }
+
+    .delete-btn {
+        margin-top: 10px
     }
     
 `;

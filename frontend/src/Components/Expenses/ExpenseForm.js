@@ -6,17 +6,18 @@ import { useGlobalContext } from '../../context/globalContext'
 import Button from '../Button/Button'
 import { plus } from '../../utils/icons'
 
+export const expense_options = ["Groceries", "Clothes", "Shopping", "Entertainment", "Food", "Stocks", "Subscriptions", "Traveling", "Rent", "School", "Misc"]
+
 function ExpenseForm() {
     const {addExpense, error, setError} = useGlobalContext() 
     const [inputState, setInputState] = useState({
         title: '',
         amount: '',
-        date: '',
-        category: '',
-        description: ''
+        date: new Date(),
+        category: ''
     })
 
-    const {title, amount, date, category, description} = inputState 
+    const {title, amount, date, category} = inputState
 
     const handleInput = type => e => {
         setInputState({...inputState, [type]: e.target.value})
@@ -29,9 +30,8 @@ function ExpenseForm() {
         setInputState({
                 title: '',
                 amount: '',
-                date: '',
-                category: '',
-                description: ''
+                date: new Date(),
+                category: ''
         })
     }
 
@@ -48,9 +48,6 @@ function ExpenseForm() {
                 </input>
             </div>
             <div className='input-control'>
-                <textarea name='description' value={description} placeholder='Description' id='description' cols="30" rows="4" onChange={handleInput('description')}></textarea>
-            </div>
-            <div className='input-control'>
                 <input 
                     type='text'
                     value={amount}
@@ -64,7 +61,7 @@ function ExpenseForm() {
                     id='date'
                     placeholderText='Enter a Date'
                     selected={date}
-                    dateFormat={'dd/MM/yyyy'}
+                    dateFormat={'MM/dd/yyyy'}
                     onChange={(date) => {
                         setInputState({...inputState, date: date})
                     }}>
@@ -74,17 +71,9 @@ function ExpenseForm() {
             <div className='selects input-control'>
                 <select required value={category} name='category' id='category' onChange={handleInput('category')}>
                     <option value="" disabled>Select Option</option>
-                    <option value="groceries">Groceries</option>
-                    <option value="clothes">Clothes</option>
-                    <option value="shopping">Shopping</option>
-                    <option value="entertainment">Entertainment</option>
-                    <option value="food">Food</option>
-                    <option value="stocks">Stocks</option>
-                    <option value="subscriptions">Subscriptions</option>
-                    <option value="traveling">Traveling</option>
-                    <option value="rent">Rent</option>
-                    <option value="school">School</option>
-                    <option value="misc">Misc.</option>
+                    {expense_options.map((option) => (
+                        <option key={option} value={option}>{option}</option>
+                    ))}
                 </select>
             </div>
             <div className='submit-btn'>
@@ -93,7 +82,7 @@ function ExpenseForm() {
                         icon={plus}
                         bPad={'.8rem 1.6rem'}
                         bRad={'30px'}
-                        bg={'var(--color-accent)'}
+                        bg={'var(--btns)'}
                         color={'#fff'}>
                     </Button>
             </div>
@@ -116,9 +105,9 @@ const ExpenseFormStyled = styled.form`
         background: transparent;
         resize: none;
         box-shadow: 0px 1px 15px var(--box-shadow-color);
-        color: var(--primary-color9);
+        color: var(--primary-text9);
         &::placeholder {
-            color: var(--primary-color4);
+            color: var(--primary-text4);
         }
         .input-control {
             input {
@@ -129,9 +118,9 @@ const ExpenseFormStyled = styled.form`
             display: flex;
             justify-content: flex-end;
             select {
-                color: var(--primary-color4);
+                color: var(--primary-text4);
                 &:focus, &:active {
-                    color: var(--primary-color-full);
+                    color: var(--primary-text);
                 }
             }
         }

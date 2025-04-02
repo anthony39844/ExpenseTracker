@@ -1,12 +1,12 @@
 import React from 'react'
 import styled from "styled-components"
-import { calendar, comment, dollar, trash, money, sportsbet, gift, returns, food, takeout, clothing, shopping, misc, stocks, tv, travel, house, school } from '../../utils/icons';
+import { calendar, dollar, trash, money, sportsbet, gift, returns, food, takeout, clothing, shopping, misc, stocks, tv, travel, house, school } from '../../utils/icons';
 import Button from '../Button/Button';
 import { dateFormating } from '../../utils/dateFormat';
 
 function Item(
     {
-        id, title, amount, date, category, description, deleteItem, indicatorColor, type
+        id, title, amount, date, category, deleteItem, indicatorColor, type
     })
     {
 
@@ -14,7 +14,7 @@ function Item(
         switch(category) {
             case 'Salary':
                 return money
-            case 'SportsBetting':
+            case 'Sports Betting':
                 return sportsbet
             case 'Payment':
                 return money
@@ -29,27 +29,27 @@ function Item(
 
     const expenseIcon = () => {
         switch(category) {
-            case 'groceries':
+            case 'Groceries':
                 return food
-            case 'clothes':
+            case 'Clothes':
                 return clothing
-            case 'shopping':
+            case 'Shopping':
                 return shopping
-            case 'entertainment':
+            case 'Entertainment':
                 return gift
-            case 'misc':
+            case 'Misc':
                 return misc
-            case 'food':
+            case 'Food':
                 return takeout
-            case 'stocks':
+            case 'Stocks':
                 return stocks
-            case 'subscriptions':
+            case 'Subscriptions':
                 return tv
-            case 'traveling':
+            case 'Traveling':
                 return travel
-            case 'rent':
+            case 'Rent':
                 return house
-            case 'school':
+            case 'School':
                 return school
             default:
                 return ''
@@ -67,21 +67,19 @@ function Item(
                     <div className='text'>
                         <p>{dollar}{amount}</p>
                         <p>{calendar}{dateFormating(date)}</p>
-                        <p>
-                            {comment} {description}
-                        </p>
                     </div>
                     <div className='btn-con'>
+                        {deleteItem === undefined ? <></> :
                         <Button
                             icon={trash}
                             bPad={'1rem'}
                             bRad={'50%'}
-                            bg={'var(--primary-color)'}
+                            bg={'var(--btns)'}
                             color={'#fff'}
                             iColor={'#fff'}
                             hColor={'var(--color-green)'}
                             onClick={() => deleteItem(id)}>
-                        </Button>
+                        </Button>}
                     </div>
                 </div>
             </div>
@@ -90,7 +88,7 @@ function Item(
 }
 
 const IncomeStyled = styled.div`
-    background: var(--background);
+    background: var(--item-background);
     border: 2px solid var(--white);
     box-shadow: 0px 1px 15px var(--box-shadow-color);
     border-radius: 20px;
@@ -148,7 +146,7 @@ const IncomeStyled = styled.div`
                     display: flex;
                     align-items: center;
                     gap: 0.5rem;
-                    color: var(--primary-color);
+                    color: var(--primary-text);
                     opacity: 0.8;
                 }
             }

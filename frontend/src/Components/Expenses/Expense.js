@@ -2,12 +2,11 @@ import React, { useEffect } from 'react'
 import styled from "styled-components"
 import { InnerLayout } from '../../styles/Layouts';
 import { useGlobalContext } from '../../context/globalContext';
-import Form from '../Form/form';
 import IncomeItem from '../Item/Item.js';
 import ExpenseForm from './ExpenseForm';
 
 function Expenses() {
-    const {addExpense, expenses, getExpenses, deleteExpense, totalExpenses} = useGlobalContext()
+    const {expenses, getExpenses, deleteExpense, totalExpenses} = useGlobalContext()
 
     useEffect(() => {
         getExpenses()
@@ -17,24 +16,23 @@ function Expenses() {
         <ExpenseStyled>
             <InnerLayout>
                 <h1>Expenses</h1>
-                <h2 className='total-income'>
+                <h2 className='total-expense'>
                     Total Expenses: 
                     <span>
                         ${totalExpenses()}
                     </span>
                 </h2>
-                <div className='income-content'>
+                <div className='expense-content'>
                     <div className='form-container'>
                         <ExpenseForm></ExpenseForm>
                     </div>
-                    <div className='incomes'>
+                    <div className='expenses-item-list'>
                         {expenses.map((expense) => {
-                            const {_id, title, amount, date, category, description, type} = expense;
+                            const {_id, title, amount, date, category, type} = expense;
                             return <IncomeItem
                                     key={_id}
                                     id={_id}
                                     title={title}
-                                    description={description}
                                     amount={amount}
                                     date={date}
                                     type={type}
@@ -53,11 +51,11 @@ function Expenses() {
 const ExpenseStyled = styled.div`
     display: flex;
     overflow: auto;
-    .total-income {
+    .total-expense {
         display: flex;
         justify-content: center;
         align-items: center;
-        background: var(--background);
+        background: var(--item-background);
         border: 2px solid var(--white);
         box-shadow: 0px 1px 15px var(--box-shadow-color);
         border-radius: 20px;
@@ -71,10 +69,10 @@ const ExpenseStyled = styled.div`
             color: var(--color-green)
         }
     }
-    .income-content {
+    .expense-content {
         display: flex;
         gap: 2rem;
-        .incomes {
+        .expenses-item-list {
             flex: 1;
         }
     }
